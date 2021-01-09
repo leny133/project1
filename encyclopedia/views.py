@@ -10,5 +10,6 @@ def index(request):
 
 def search(request, title):
     return render(request, "wiki/index.html",{
-        "title" : util.get_entry(title)
+        "content" : util.get_entry(title),
+        "title" : title
     })
