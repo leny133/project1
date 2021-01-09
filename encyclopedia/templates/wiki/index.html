@@ -11,7 +11,7 @@
 {% block body %}
     {% if content == None %}
         Page not found.
-        <a href= "{% url 'index' %}">Return Home</a>
+        <a href= "{% url 'tasks:index' %}">Return Home</a>
                 
     {% else %}
         {{content | safe}} 

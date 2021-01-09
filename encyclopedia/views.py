@@ -6,12 +6,14 @@ from django.http import HttpResponse
 
 markdowner = Markdown()
 
+
+
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
 
-def search(request, title):
+def title(request, title):
     if util.get_entry(title) == None:
         content=None
     else:
@@ -20,3 +22,6 @@ def search(request, title):
         "content" : content,
         "title" : title
     })
+
+def search(request):
+    return HttpResponse ("daleee")
