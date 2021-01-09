@@ -35,10 +35,13 @@ def search(request):
     if request.method == "POST":
         if util.get_entry(title) == None:
             slist=util.list_entries()
-            for title in slist:
-                entries.append(title)
+            lower_slist = [y.lower() for y in slist]
+            entries = [x for x in lower_slist if re.search(title.lower(), x)]
+            #
+            #list(filter(lambda x: title in x, slist))
+                
             return render(request, "encyclopedia/index.html", {
-        "entries": list(entries)
+        "entries": entries
     })
             
         else:
