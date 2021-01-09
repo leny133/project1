@@ -3,10 +3,16 @@ from django.utils import html
 from . import util
 from markdown2 import Markdown
 from django.http import HttpResponse
+from django import forms
+import re
 
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 markdowner = Markdown()
 
 
+class NewTaskForm(forms.Form):
+    task = forms.CharField(label="New Search")
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -24,4 +30,21 @@ def title(request, title):
     })
 
 def search(request):
-    return HttpResponse ("daleee")
+    title = request.POST['q']
+    entries=[]
+    if request.method == "POST":
+        if util.get_entry(title) == None:
+            slist=util.list_entries()
+            for title in slist:
+                entries.append(title)
+            return render(request, "encyclopedia/index.html", {
+        "entries": list(entries)
+    })
+            
+        else:
+            content=markdowner.convert(util.get_entry(title))
+    return render(request, "wiki/index.html",{
+        "content" : content,
+        "title" : title
+    })   
+        
