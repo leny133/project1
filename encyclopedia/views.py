@@ -33,7 +33,8 @@ def edit(request):
     content = util.get_entry(request.POST['titlepass'])
     return render(request, "wiki/addpage.html",{
         "content" : content,
-        "title" : request.POST['titlepass']
+        "title" : request.POST['titlepass'],
+        "disabled" : "readonly"
     })
 
 def addpage(request):

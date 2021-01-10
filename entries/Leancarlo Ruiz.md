@@ -1,6 +1,16 @@
-# Leancarlo Ruiz
-
-      Student of CS50 WEB.
-
-            
-
+# Leancarlo Ruiz
+      Student of CS50 WEB.
+
+
+
+            
+
+
+
+
+
+            
+
+        
+            
+        
