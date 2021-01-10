@@ -35,8 +35,7 @@ def search(request):
 
             if util.get_entry(title) == None:
                 slist=util.list_entries()
-                lower_slist = [y.lower() for y in slist]
-                entries = [x for x in lower_slist if re.search(title.lower(), x)]
+                entries = [x for x in slist if re.search(title, x, re.IGNORECASE)]
                 if not entries:
                     content = None
                     return render(request, "wiki/index.html",{
