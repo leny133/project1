@@ -32,9 +32,16 @@ def title(request, title):
 def rdom(request):
     return title(request, random.choice(util.list_entries()))
     
+def edit(request,):
+    content = util.get_entry(request.POST['titlepass'])
+    return render(request, "wiki/addpage.html",{
+        "content" : content,
+        "title" : request.POST['titlepass']
+    })
+
 def addpage(request):
     if request.method == "POST":
-        util.save_entry(request.POST['newtitle'].capitalize(),"#" + request.POST['newtitle'].capitalize() + "<br><br>" + request.POST['newcontent'])
+        util.save_entry(request.POST['newtitle'].capitalize(), request.POST['newcontent'])
         return title(request, request.POST['newtitle'] )
     else:
         return render(request, "wiki/addpage.html")
