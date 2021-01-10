@@ -1,11 +1,11 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Add Page
+    Edit Page
 {% endblock %}
 
 {% block body %}
-    <form action = "{% url 'tasks:addpage' %}" method="post">
+    <form action = "{% url 'tasks:saveedit' %}" method="post">
         {% csrf_token %}
         <label for="ntitle"><h2>New Title:</h2></label><br>
         <input type="text" name="newtitle" required=true value="{{title}}" {{disabled}}> "*Title can not be edited after created."

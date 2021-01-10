@@ -31,16 +31,25 @@ def rdom(request):
     
 def edit(request):
     content = util.get_entry(request.POST['titlepass'])
-    return render(request, "wiki/addpage.html",{
+    return render(request, "wiki/edit.html",{
         "content" : content,
         "title" : request.POST['titlepass'],
         "disabled" : "readonly"
     })
-
-def addpage(request):
+def saveedit(request):
     if request.method == "POST":
         util.save_entry(request.POST['newtitle'], request.POST['newcontent'])
         return title(request, request.POST['newtitle'] )
+    else:
+        return title(request, None )
+
+def addpage(request):
+    if request.method == "POST":
+        if util.get_entry(request.POST['newtitle']) == None:
+            util.save_entry(request.POST['newtitle'], request.POST['newcontent'])
+            return title(request, request.POST['newtitle'] )
+        else:
+            return title(request, None )
     else:
         return render(request, "wiki/addpage.html")
 
