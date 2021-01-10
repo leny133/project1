@@ -31,21 +31,24 @@ def title(request, title):
 
 def search(request):
     title = request.POST['q']
-    entries=[]
     if request.method == "POST":
-        if util.get_entry(title) == None:
-            slist=util.list_entries()
-            lower_slist = [y.lower() for y in slist]
-            entries = [x for x in lower_slist if re.search(title.lower(), x)]
-            #
-            #list(filter(lambda x: title in x, slist))
-                
-            return render(request, "encyclopedia/index.html", {
-        "entries": entries
+
+            if util.get_entry(title) == None:
+                slist=util.list_entries()
+                lower_slist = [y.lower() for y in slist]
+                entries = [x for x in lower_slist if re.search(title.lower(), x)]
+                if not entries:
+                    content = None
+                    return render(request, "wiki/index.html",{
+                        "content" : content,
+                        "title" : title
+                    })
+                else:
+                    return render(request, "encyclopedia/index.html", {
+                    "entries": entries
     })
-            
-        else:
-            content=markdowner.convert(util.get_entry(title))
+    else:
+        content=markdowner.convert(util.get_entry(title))
     return render(request, "wiki/index.html",{
         "content" : content,
         "title" : title
