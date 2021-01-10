@@ -34,7 +34,7 @@ def rdom(request):
     
 def addpage(request):
     if request.method == "POST":
-        util.save_entry(request.POST['newtitle'],request.POST['newcontent'])
+        util.save_entry(request.POST['newtitle'].capitalize(),"#" + request.POST['newtitle'].capitalize() + "<br><br>" + request.POST['newcontent'])
         return title(request, request.POST['newtitle'] )
     else:
         return render(request, "wiki/addpage.html")
