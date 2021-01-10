@@ -9,11 +9,8 @@ import random
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+
 markdowner = Markdown()
-
-
-class NewTaskForm(forms.Form):
-    task = forms.CharField(label="New Search")
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -32,7 +29,7 @@ def title(request, title):
 def rdom(request):
     return title(request, random.choice(util.list_entries()))
     
-def edit(request,):
+def edit(request):
     content = util.get_entry(request.POST['titlepass'])
     return render(request, "wiki/addpage.html",{
         "content" : content,
@@ -52,7 +49,7 @@ def search(request):
 
             if util.get_entry(title) == None:
                 slist=util.list_entries()
-                entries = [x for x in slist if re.search(title, x, re.IGNORECASE)]
+                entries = [x for x in slist if re.match(title, x, re.IGNORECASE)]
                 if not entries:
                     content = None
                     return render(request, "wiki/index.html",{
@@ -62,11 +59,12 @@ def search(request):
                 else:
                     return render(request, "encyclopedia/index.html", {
                     "entries": entries
-    })
+                     })
+            else:
+                content=markdowner.convert(util.get_entry(title))
+                return render(request, "wiki/index.html",{
+                "content" : content,
+                "title" : title
+                })   
     else:
-        content=markdowner.convert(util.get_entry(title))
-    return render(request, "wiki/index.html",{
-        "content" : content,
-        "title" : title
-    })   
-        
+        return(title(request, None))
