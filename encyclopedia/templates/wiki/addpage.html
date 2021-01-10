@@ -8,11 +8,10 @@
     <form action = "{% url 'tasks:addpage' %}" method="post">
         {% csrf_token %}
         <label for="ntitle"><h2>New Title:</h2></label><br>
-        <input type="text" name="newtitle" required=true value="{{title}}" {{disabled}}> "*Title can not be edited"
+        <input type="text" name="newtitle" required=true value="{{title}}" {{disabled}}> "*Title can not be edited afte created."
         <br><label for="ncontent"><h2>Write new content:</h2></label><br>
-        <textarea name="newcontent" required=true wrap=hard rows="1" cols="40" placeholder="Write here the subbmit in markdown format">{{content}}
-            
-        </textarea><br>
+        <textarea name="newcontent" required=true >{{content}}</textarea> 
+        <br>
         <input type ="submit">
     </form>
 {% endblock %}

@@ -39,7 +39,7 @@ def edit(request):
 
 def addpage(request):
     if request.method == "POST":
-        util.save_entry(request.POST['newtitle'].capitalize(), request.POST['newcontent'])
+        util.save_entry(request.POST['newtitle'], request.POST['newcontent'])
         return title(request, request.POST['newtitle'] )
     else:
         return render(request, "wiki/addpage.html")
