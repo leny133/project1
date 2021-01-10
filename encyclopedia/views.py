@@ -5,6 +5,7 @@ from markdown2 import Markdown
 from django.http import HttpResponse
 from django import forms
 import re
+import random
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -28,7 +29,9 @@ def title(request, title):
         "content" : content,
         "title" : title
     })
-
+def rdom(request):
+    return title(request, random.choice(util.list_entries()))
+    
 def search(request):
     title = request.POST['q']
     if request.method == "POST":
