@@ -32,6 +32,13 @@ def title(request, title):
 def rdom(request):
     return title(request, random.choice(util.list_entries()))
     
+def addpage(request):
+    if request.method == "POST":
+        util.save_entry(request.POST['newtitle'],request.POST['newcontent'])
+        return title(request, request.POST['newtitle'] )
+    else:
+        return render(request, "wiki/addpage.html")
+
 def search(request):
     title = request.POST['q']
     if request.method == "POST":
